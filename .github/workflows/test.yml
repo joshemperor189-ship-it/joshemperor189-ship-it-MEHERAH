@@ -1,0 +1,47 @@
+name: MEHERAH CI & Verification Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  verify:
+    name: MEHERAH Institutional Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Set up Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Node Dependencies
+        run: npm ci
+
+      - name: Verify TypeScript Compilation & Linting
+        run: npm run lint
+
+      - name: Run Build Check
+        run: npm run build
+
+      - name: Run MEHERAH Unit Test Suite
+        run: python3 test_meherah.py -v
+
+      - name: Run MEHERAH Live Verification Pipeline
+        run: python3 meherah_verify.py
+
+      - name: Run Self-Healing Radar Scanner
+        run: python3 meherah_radar.py
+
+      - name: Run Institutional Terminal Demo Simulation
+        run: python3 demo/simulation/institutional_demo.py

@@ -1,33 +1,36 @@
-# MEHERAH OS — Beta 1.0 Changelog
+# MEHERAH Version History & Changelog
 
-All notable changes, architectural updates, and release milestones for MEHERAH OS will be documented in this file.
+All notable changes to the MEHERAH Financial Intelligence Core platform will be documented in this file.
 
----
-
-## [v1.0-beta.001] - 2026-07-24 (Hardened Staging Release)
-
-### 🚀 Key Features Introduced
-- **Autonomous Chief Orchestrator Kernel**: Multi-agent task decomposition graph with real-time web intelligence ingestion, cognitive failover, and memory learning loop.
-- **Stage 5 Evaluation Engine (`src/core/stage5-evaluation.ts`)**: Automated report card scorecard evaluating Mission Understanding, Planning, Collaboration, Financial Reasoning, Strategic Thinking, Fault Recovery, Memory, Governance Compliance, and Output Quality (96/100 benchmark score achieved).
-- **Hardened Zero-Knowledge Audit & Governance Engine**: ZK-proof generation for operation tracking, real-time alert dispatching, and hard blocks on unauthorized financial actions (e.g., unapproved wire transfers).
-- **Automated CI/CD Pipeline (`.github/workflows/deploy-staging.yml`)**: Full automated build, typecheck, integration test suite, Docker container packaging, push to Google Artifact Registry (`meherah-beta-container`), and Cloud Run staging deployment with secret manager bindings.
-- **Zero-Downtime Rollback Strategy**: Single-command Cloud Run revision rollback capability with previous revision preservation.
-
-### 🛡️ Security & Infrastructure Enhancements
-- **Google Secret Manager Integration**: `DATABASE_URL`, `REDIS_URL`, `RABBITMQ_URL`, `GEMINI_API_KEY`, and `JWT_SECRET` injected securely at runtime without repo leakages.
-- **Runtime Health Endpoint (`GET /api/health`)**: Comprehensive operational check verifying kernel status, database connectivity, queue system readiness, and agent scheduler state.
-- **Docker Multi-Stage Build**: Minimized runtime container footprint with production-only dependencies and CJS server bundle (`dist/server.cjs`).
-
-### 🔧 Bug Fixes & Refactorings
-- Fixed Prisma Client instantiation fallback in sandbox container environments without active PostgreSQL connections.
-- Implemented robust local memory fallback for Strategy Metrics retrieval and audit logging.
-- Fixed health check response schema to comply with automated deployment verifier requirements.
-
-### ⚠️ Known Limitations
-- **Local Fallback Mode**: When Redis or RabbitMQ instances are unreachable in isolated container environments, the kernel automatically operates in graceful fallback mode using isolated secondary memory ring buffers.
-- **Staging-Only Scope**: Direct production auto-deployments are intentionally restricted. Production deployments require explicit tag approval (`v1.0.0-prod`).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [v0.9.0-beta] - 2026-07-23 (Initial Architecture Prototype)
-- Initial release of Meherah OS multi-agent interface, UI dashboard, and mock payment gateway connectors.
+## [1.0.0] - 2026-07-28 - Institutional Sandbox Initial Release
+
+### Added
+- **AI Intelligence Kernel**:
+  - Explainable AI (XAI) routing decision engine (`/ai-engine/decision-engine`).
+  - Closed-loop historical performance memory tracking provider latency & fee accuracy.
+  - Confidence threshold intercept guardrail enforcing 90.0% minimum score for auto-execution.
+- **Provider Adapter Framework**:
+  - Telecom and gateway adapters for MTN Mobile Money, Airtel Money, Flutterwave, Beyonic, and Bank ACH.
+  - Circuit-breaker failover router automatically shifting transactions when primary provider degrades.
+- **Double-Entry Micro-Ledger**:
+  - Multi-currency, double-entry accounting engine with atomic reversing journal capability.
+  - Cryptographic ZK-hash audit log sealer providing immutable transaction provenance.
+- **Security & Zero-Trust Infrastructure**:
+  - Role-Based Access Control (RBAC) permission matrix (`BANK_OPERATOR`, `COMPLIANCE_OFFICER`, `SYSTEM_ADMIN`).
+  - Explicit Intent Evidence enforcement blocking unauthorized background fund executions.
+  - Diagnostic Flight Recorder capturing full diagnostic state upon security exceptions.
+- **Verification & Self-Healing Radar Core**:
+  - Production unit test suite (`test_meherah.py`) yielding 100% Bank of Uganda Demo Readiness score.
+  - Active verification pipeline (`meherah_verify.py`).
+  - Static analysis Radar scanner (`meherah_radar.py`) auto-healing codebase inconsistencies.
+- **Institutional Simulation & Control Units**:
+  - Executive Control Unit React/Tailwind web console.
+  - Interactive institutional terminal demo script (`demo/simulation/institutional_demo.py`).
+- **GitHub Repository Standards**:
+  - Complete documentation suite (`docs/architecture`, `docs/security`, `docs/api`).
+  - `.env.example`, `.gitignore`, `GOVERNANCE.md`, and GitHub Actions CI workflow (`.github/workflows/test.yml`).

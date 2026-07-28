@@ -1,88 +1,110 @@
-# MEHERAH Core Financial Intelligence & Settlement Framework
+# MEHERAH AI
 
-MEHERAH is an enterprise-grade financial intelligence platform engineered for central banking sandbox integration, cross-border settlement validation, resilient liquidity automation, and real-time algorithmic oversight.
+> **The Intelligence Behind Everything**
+
+MEHERAH is an institutional-grade financial intelligence operating layer that unifies banks, mobile money, wallets, and payment networks into a single, cohesive, self-healing ecosystem. Built for central banking regulatory sandboxes and cross-border liquidity automation, MEHERAH optimizes payment routing in real time while providing complete explainability and zero-trust security guardrails.
 
 ---
 
-## 🏛 Repository Architecture
+## 🌟 Vision
+
+Modern cross-border and regional financial rails remain fragmented across incompatible payment networks, telecom mobile money APIs, and legacy banking systems. MEHERAH acts as a **Universal Financial Language Layer** that sits between financial institutions and payment gateways, eliminating liquidity bottlenecks, reducing transaction fees, and ensuring total audit transparency for central banks and regulatory authorities like the Bank of Uganda.
+
+---
+
+## 🏛️ System Topology & Architecture
+
+```text
+[ Central Banks & Regulators ] ─── [ Commercial Banks ] ─── [ Mobile Money ] ─── [ Regional Gateways ]
+                                              │
+                                              ▼
+                             +----------------------------------+
+                             |   MEHERAH APPLICATION GATEWAY    |
+                             |   (RBAC & Intent Evidence Guard) |
+                             +----------------+-----------------+
+                                              │
+                                              ▼
+                             +----------------------------------+
+                             |   MEHERAH AI INTELLIGENCE KERNEL  |
+                             |   - Dynamic Route Optimization   |
+                             |   - Explainable AI (XAI) Engine  |
+                             |   - 90% Confidence Intercept     |
+                             +----------------+-----------------+
+                                              │
+                                              ▼
+                             +----------------------------------+
+                             |   PROVIDER ADAPTER & FAILOVER    |
+                             |   (MTN / Airtel / Flutterwave)   |
+                             +----------------+-----------------+
+                                              │
+                                              ▼
+                             +----------------------------------+
+                             |   IMMUTABLE DOUBLE-ENTRY LEDGER  |
+                             |   (Cryptographic ZK-Hash Sealing)|
+                             +----------------------------------+
+```
+
+*For detailed architectural flow maps, consult [`docs/architecture/system-map.md`](docs/architecture/system-map.md).*
+
+---
+
+## ⚡ Key Capabilities
+
+- **Executive Control Units**: Real-time web console providing central bank operators with instant visibility into liquidity pools, circuit breaker states, and risk alerts.
+- **AI Route Intelligence Panel**: Evaluates fee tiers, network latency, and provider degradation metrics in real time to route transactions along the optimal path.
+- **Explainable AI (XAI) Framework**: Emits transparent, human-readable justification logs for every automated routing decision.
+- **Human-in-the-Loop Intercept**: Automatically freezes any AI route recommendation scoring below **90.0% confidence** and routes it to a human compliance officer.
+- **Telecom Circuit Breaker & Auto-Failover**: Automatically shifts settlement volume from primary providers (e.g. MTN) to secondary channels (e.g. Airtel) if network degradation is detected.
+- **Double-Entry Micro-Ledger**: Multi-currency, atomic accounting engine backed by cryptographic ZK-hash audit log sealing.
+- **Active Verification Radar**: Integrated self-healing static analyzer (`meherah_radar.py`) and verification suite (`meherah_verify.py`).
+
+---
+
+## 🛡️ Security & Compliance Model
+
+1. **Zero Hardcoded Credentials**: Secrets, API keys, and database tokens are loaded strictly from environment variables.
+2. **Explicit Intent Evidence**: Automated fund displacement without cryptographically verified user intent (`evidence_of_intent`) is strictly blocked.
+3. **Flight Recorder Diagnostics**: Captures instant full system snapshot upon security or authorization failures.
+4. **Audit Log Immutability**: All ledger entries are appended to a read-only, cryptographically hash-sealed ledger.
+
+---
+
+## 📂 Repository Layout
 
 ```text
 MEHERAH/
 │
-├── frontend/                   # Executive Control Units & Web Console
-│   ├── src/                    # React components, views, and state logic
-│   ├── components/             # Reusable UI cards, tables, and gauges
-│   └── assets/                 # Brand assets and regulatory iconography
-│
-├── backend/                    # Core Application Gateway & Microservices
-│   ├── api/                    # Express & REST API routing endpoints
-│   ├── services/               # Micro-ledger & settlement services
-│   ├── controllers/            # Controller logic for transfers & audits
-│   └── middleware/             # RBAC auth & intent validation middleware
-│
-├── ai-engine/                  # Intelligence & Governance Kernel
-│   ├── reasoning/              # AI risk scoring & confidence calculation
-│   ├── governance/             # Human-in-the-loop validation threshold
-│   ├── memory/                 # Closed-loop historical performance memory
-│   └── decision-engine/        # Settlement route optimization
-│
-├── providers/                  # Resilient Telecom & Gateway Adapters
-│   ├── flutterwave/            # Flutterwave payout gateway connector
-│   ├── beyonic/                # Beyonic B2B mobile payment adapter
-│   ├── mtn/                    # MTN Mobile Money Open API integration
-│   └── airtel/                 # Airtel Money API adapter
-│
-├── database/                   # Micro-Ledger & Schema Definitions
-│   ├── migrations/             # Database migration scripts
-│   └── schemas/                # Double-entry ledger schema models
-│
-├── security/                   # Zero-Trust Security Infrastructure
-│   ├── authentication/         # JWT / OAuth session authorization
-│   ├── permissions/            # RBAC clearance level matrix
-│   └── encryption/             # Cryptographic ZK-hash audit log sealing
-│
-├── testing/                    # Active Verification & Self-Healing Engines
-│   ├── verification/           # Production test runner & verify suite
-│   ├── radar/                  # Self-healing static analysis radar core
-│   └── integration-tests/      # End-to-end chaos & load test scripts
-│
-├── docs/                       # Technical & Compliance Documentation
-│   ├── architecture.md         # Full system architecture diagram & layout
-│   ├── security.md             # Security policies & intent enforcement rules
-│   └── roadmap.md              # Regulatory sandbox deployment roadmap
-│
-├── README.md                   # Repository overview & setup guide
-├── CONTRIBUTING.md             # Engineering contribution guidelines
-├── .gitignore                  # GitHub security exclusion patterns
-├── .env.example                # Safe environment variable configuration template
-└── package.json                # Project dependencies and operational scripts
+├── frontend/                   # Executive Control Units & Web Console (React / Vite)
+├── backend/                    # Express REST API gateway & middleware
+├── ai-engine/                  # XAI reasoning kernel & decision record logger
+├── providers/                  # Telecom adapters (MTN, Airtel, Flutterwave, Beyonic)
+├── database/                   # Double-entry ledger schema & migration models
+├── security/                   # RBAC authorization & cryptographic audit sealer
+├── testing/                    # Verification suite & self-healing Radar scanner
+├── demo/simulation/            # Institutional terminal simulation (`institutional_demo.py`)
+├── docs/                       # Architecture diagrams, security policies, & API docs
+├── .github/workflows/          # Automated CI verification workflow (`test.yml`)
+├── CHANGELOG.md                # Release versioning history
+├── GOVERNANCE.md               # Maintainer and regulatory oversight policies
+├── .env.example                # Safe environment configuration template
+└── package.json                # NPM dependencies & operational scripts
 ```
 
 ---
 
-## 🚀 Rapid Setup & Quick Start
+## 💻 Running the Institutional Demo
 
-### 1. Prerequisites
-- **Node.js**: v18.0.0 or higher
-- **Python**: v3.10 or higher
-- **Package Manager**: npm or yarn
+Experience MEHERAH's decision engine and XAI justification logs locally using the terminal simulator:
 
-### 2. Environment Configuration
-Copy the provided environment template to establish your local bindings:
 ```bash
-cp .env.example .env
-```
-*Note: Never commit your `.env` file or plaintext credentials to version control.*
-
-### 3. Installation
-Install JavaScript/TypeScript and Python dependencies:
-```bash
-npm install
-pip install -r requirements.txt
+python3 demo/simulation/institutional_demo.py
 ```
 
-### 4. Running Verification & Diagnostics
-Run the MEHERAH automated unit test suite with Bank of Uganda readiness score:
+---
+
+## 🧪 Testing, Verification, & Self-Healing Radar
+
+Run the automated test suite with Bank of Uganda readiness scoring:
 ```bash
 python3 test_meherah.py -v
 ```
@@ -97,24 +119,15 @@ Run the self-healing static analysis Radar scanner:
 python3 meherah_radar.py
 ```
 
-### 5. Launching the Application Server
-Start the development server with live preview:
-```bash
-npm run dev
-```
-
 ---
 
-## 🛡️ Core Governance & Security Rules
+## 📖 API & System Documentation
 
-1. **Explicit Intent Evidence**: Every transactional payload must supply verifiable evidence of user intent (`evidence_of_intent`). Automated background triggers without recorded intent are strictly blocked.
-2. **AI Confidence Intercept**: Any AI decision or recommendation scoring below **90.0% confidence** is automatically flagged and routed to a human Bank Operator for approval.
-3. **Telecom Circuit Breaking**: If primary payout networks (e.g., MTN) undergo degradation, payments are dynamically auto-routed to secondary channels (e.g., Airtel) seamlessly.
-4. **Zero Hardcoded Secrets**: All keys, passwords, and tokens are read exclusively from environment variables.
-
----
-
-## 📊 Bank of Uganda Sandbox Verification Metrics
-- **Demo Readiness Score**: 100.0%
-- **Passed System Integrity Checks**: 7/7 Core Unit Tests, 6/6 Live Pipeline Audits
-- **Codebase Health State**: Fully verified, zero unresolved radar risks.
+- [System Map & Architecture Diagram](docs/architecture/system-map.md)
+- [Security & Trust Center](documentation/security/TRUST_CENTER.md)
+- [REST API Routes Reference](docs/api/routes.md)
+- [Payment Provider Integrations](docs/api/providers.md)
+- [Authentication & RBAC Model](docs/api/authentication.md)
+- [Project Roadmap](docs/roadmap.md)
+- [System Governance](GOVERNANCE.md)
+- [Changelog](CHANGELOG.md)

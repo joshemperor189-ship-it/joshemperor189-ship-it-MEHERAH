@@ -568,7 +568,7 @@
       "type": "MOBILE_MONEY",
       "provider": "MTN",
       "status": "ONLINE",
-      "latencyMs": 40,
+      "latencyMs": 38,
       "rateLimitPerSec": 20,
       "currentQueueSize": 0
     },
@@ -607,214 +607,214 @@
   "batchQueue": [],
   "metrics": [
     {
-      "timestamp": "2026-07-28T08:34:53.747Z",
+      "timestamp": "2026-07-28T09:15:01.369Z",
+      "mtnLatency": 39,
+      "airtelLatency": 43,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (39ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:03.870Z",
+      "mtnLatency": 40,
+      "airtelLatency": 48,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (40ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:06.371Z",
+      "mtnLatency": 43,
+      "airtelLatency": 43,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (43ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:08.873Z",
+      "mtnLatency": 39,
+      "airtelLatency": 148,
+      "selectedProvider": "MTN",
+      "stateDescription": "ALERT: Airtel latency surged to 148ms (Congestion detected). Cognitive telemetry preemptively routed execution queue to MTN MoMo."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:11.374Z",
+      "mtnLatency": 42,
+      "airtelLatency": 130,
+      "selectedProvider": "MTN",
+      "stateDescription": "ALERT: Airtel latency surged to 130ms (Congestion detected). Cognitive telemetry preemptively routed execution queue to MTN MoMo."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:13.873Z",
+      "mtnLatency": 43,
+      "airtelLatency": 124,
+      "selectedProvider": "MTN",
+      "stateDescription": "ALERT: Airtel latency surged to 124ms (Congestion detected). Cognitive telemetry preemptively routed execution queue to MTN MoMo."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:16.373Z",
+      "mtnLatency": 43,
+      "airtelLatency": 48,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (43ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:18.875Z",
+      "mtnLatency": 42,
+      "airtelLatency": 43,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (42ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:21.375Z",
+      "mtnLatency": 43,
+      "airtelLatency": 47,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (43ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:23.876Z",
+      "mtnLatency": 38,
+      "airtelLatency": 48,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (38ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:26.377Z",
+      "mtnLatency": 41,
+      "airtelLatency": 45,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (41ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:28.878Z",
+      "mtnLatency": 36,
+      "airtelLatency": 44,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (36ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:31.380Z",
+      "mtnLatency": 44,
+      "airtelLatency": 53,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (44ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:33.879Z",
       "mtnLatency": 38,
       "airtelLatency": 44,
       "selectedProvider": "MTN",
       "stateDescription": "Meherah Core OK. Routing via MTN (38ms) for optimal efficiency waterfall."
     },
     {
-      "timestamp": "2026-07-28T08:34:56.248Z",
-      "mtnLatency": 44,
-      "airtelLatency": 46,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (44ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:34:58.749Z",
-      "mtnLatency": 40,
-      "airtelLatency": 54,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (40ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:01.250Z",
-      "mtnLatency": 42,
-      "airtelLatency": 48,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (42ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:03.751Z",
-      "mtnLatency": 44,
-      "airtelLatency": 53,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (44ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:06.253Z",
-      "mtnLatency": 45,
-      "airtelLatency": 140,
-      "selectedProvider": "MTN",
-      "stateDescription": "ALERT: Airtel latency surged to 140ms (Congestion detected). Cognitive telemetry preemptively routed execution queue to MTN MoMo."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:08.751Z",
-      "mtnLatency": 42,
-      "airtelLatency": 51,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (42ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:11.254Z",
-      "mtnLatency": 103,
-      "airtelLatency": 49,
-      "selectedProvider": "AIRTEL",
-      "stateDescription": "ALERT: MTN latency surged to 103ms. Telemetry predictor preemptively reallocated traffic to Airtel Money channel."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:13.753Z",
-      "mtnLatency": 43,
-      "airtelLatency": 50,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (43ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:16.254Z",
-      "mtnLatency": 42,
-      "airtelLatency": 44,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (42ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:18.766Z",
-      "mtnLatency": 37,
-      "airtelLatency": 49,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (37ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:21.266Z",
+      "timestamp": "2026-07-28T09:15:36.379Z",
       "mtnLatency": 41,
       "airtelLatency": 45,
       "selectedProvider": "MTN",
       "stateDescription": "Meherah Core OK. Routing via MTN (41ms) for optimal efficiency waterfall."
     },
     {
-      "timestamp": "2026-07-28T08:35:23.767Z",
-      "mtnLatency": 42,
-      "airtelLatency": 46,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (42ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:26.268Z",
-      "mtnLatency": 36,
-      "airtelLatency": 50,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (36ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:28.770Z",
-      "mtnLatency": 37,
-      "airtelLatency": 45,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (37ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:31.270Z",
-      "mtnLatency": 45,
-      "airtelLatency": 53,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (45ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:33.771Z",
-      "mtnLatency": 42,
-      "airtelLatency": 50,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (42ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:36.271Z",
-      "mtnLatency": 39,
-      "airtelLatency": 50,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (39ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:38.771Z",
-      "mtnLatency": 45,
-      "airtelLatency": 52,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (45ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:41.272Z",
-      "mtnLatency": 44,
-      "airtelLatency": 46,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (44ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:43.772Z",
-      "mtnLatency": 45,
-      "airtelLatency": 48,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (45ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:46.273Z",
-      "mtnLatency": 45,
-      "airtelLatency": 53,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (45ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:48.774Z",
-      "mtnLatency": 43,
-      "airtelLatency": 44,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (43ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:51.274Z",
-      "mtnLatency": 39,
-      "airtelLatency": 44,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (39ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:53.775Z",
-      "mtnLatency": 104,
-      "airtelLatency": 50,
-      "selectedProvider": "AIRTEL",
-      "stateDescription": "ALERT: MTN latency surged to 104ms. Telemetry predictor preemptively reallocated traffic to Airtel Money channel."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:56.278Z",
-      "mtnLatency": 43,
-      "airtelLatency": 131,
-      "selectedProvider": "MTN",
-      "stateDescription": "ALERT: Airtel latency surged to 131ms (Congestion detected). Cognitive telemetry preemptively routed execution queue to MTN MoMo."
-    },
-    {
-      "timestamp": "2026-07-28T08:35:58.778Z",
-      "mtnLatency": 41,
-      "airtelLatency": 43,
-      "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (41ms) for optimal efficiency waterfall."
-    },
-    {
-      "timestamp": "2026-07-28T08:36:01.278Z",
-      "mtnLatency": 39,
+      "timestamp": "2026-07-28T09:15:38.881Z",
+      "mtnLatency": 38,
       "airtelLatency": 47,
       "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (39ms) for optimal efficiency waterfall."
+      "stateDescription": "Meherah Core OK. Routing via MTN (38ms) for optimal efficiency waterfall."
     },
     {
-      "timestamp": "2026-07-28T08:36:03.778Z",
-      "mtnLatency": 40,
-      "airtelLatency": 43,
+      "timestamp": "2026-07-28T09:15:41.381Z",
+      "mtnLatency": 43,
+      "airtelLatency": 51,
       "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (40ms) for optimal efficiency waterfall."
+      "stateDescription": "Meherah Core OK. Routing via MTN (43ms) for optimal efficiency waterfall."
     },
     {
-      "timestamp": "2026-07-28T08:36:06.280Z",
+      "timestamp": "2026-07-28T09:15:43.883Z",
+      "mtnLatency": 39,
+      "airtelLatency": 116,
+      "selectedProvider": "MTN",
+      "stateDescription": "ALERT: Airtel latency surged to 116ms (Congestion detected). Cognitive telemetry preemptively routed execution queue to MTN MoMo."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:46.383Z",
       "mtnLatency": 40,
+      "airtelLatency": 141,
+      "selectedProvider": "MTN",
+      "stateDescription": "ALERT: Airtel latency surged to 141ms (Congestion detected). Cognitive telemetry preemptively routed execution queue to MTN MoMo."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:48.883Z",
+      "mtnLatency": 43,
+      "airtelLatency": 52,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (43ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:51.383Z",
+      "mtnLatency": 44,
+      "airtelLatency": 44,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (44ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:53.887Z",
+      "mtnLatency": 115,
+      "airtelLatency": 45,
+      "selectedProvider": "AIRTEL",
+      "stateDescription": "ALERT: MTN latency surged to 115ms. Telemetry predictor preemptively reallocated traffic to Airtel Money channel."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:56.386Z",
+      "mtnLatency": 45,
+      "airtelLatency": 111,
+      "selectedProvider": "MTN",
+      "stateDescription": "ALERT: Airtel latency surged to 111ms (Congestion detected). Cognitive telemetry preemptively routed execution queue to MTN MoMo."
+    },
+    {
+      "timestamp": "2026-07-28T09:15:58.886Z",
+      "mtnLatency": 42,
+      "airtelLatency": 45,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (42ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:16:01.388Z",
+      "mtnLatency": 45,
+      "airtelLatency": 134,
+      "selectedProvider": "MTN",
+      "stateDescription": "ALERT: Airtel latency surged to 134ms (Congestion detected). Cognitive telemetry preemptively routed execution queue to MTN MoMo."
+    },
+    {
+      "timestamp": "2026-07-28T09:16:03.888Z",
+      "mtnLatency": 37,
+      "airtelLatency": 46,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (37ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:16:06.388Z",
+      "mtnLatency": 41,
+      "airtelLatency": 52,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (41ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:16:08.888Z",
+      "mtnLatency": 45,
+      "airtelLatency": 133,
+      "selectedProvider": "MTN",
+      "stateDescription": "ALERT: Airtel latency surged to 133ms (Congestion detected). Cognitive telemetry preemptively routed execution queue to MTN MoMo."
+    },
+    {
+      "timestamp": "2026-07-28T09:16:11.388Z",
+      "mtnLatency": 37,
+      "airtelLatency": 45,
+      "selectedProvider": "MTN",
+      "stateDescription": "Meherah Core OK. Routing via MTN (37ms) for optimal efficiency waterfall."
+    },
+    {
+      "timestamp": "2026-07-28T09:16:13.890Z",
+      "mtnLatency": 38,
       "airtelLatency": 49,
       "selectedProvider": "MTN",
-      "stateDescription": "Meherah Core OK. Routing via MTN (40ms) for optimal efficiency waterfall."
+      "stateDescription": "Meherah Core OK. Routing via MTN (38ms) for optimal efficiency waterfall."
     }
   ]
 }
