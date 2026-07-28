@@ -1,0 +1,17 @@
+# System Files
+.DS_Store
+Thumbs.db
+
+# Environments & Secret Configurations (CRITICAL DEFENSE)
+.env
+.env.local
+.env.production
+*.pem
+*.key
+
+# Runtime Dependency Modules
+node_modules/
+pycache/
+*.pyc
+venv/
+.venv/

@@ -1,0 +1,131 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 1. TENANT MANAGEMENT CORE
+model Organization {
+  orgId            String          @id @default(uuid()) @map("org_id") @db.Uuid
+  name             String          @db.VarChar(100)
+  tier             String          @default("ENTERPRISE") @db.VarChar(20)
+  createdAt        DateTime        @default(now()) @map("created_at") @db.Timestamptz
+  users            User[]
+  apiKeys          ApiKey[]
+  auditEvents      AuditEvent[]
+  missionApprovals MissionApproval[]
+
+  @@map("organizations")
+}
+
+// 2. HARDENED CORPORATE PROFILES
+model User {
+  userId           String            @id @default(uuid()) @map("user_id") @db.Uuid
+  orgId            String            @map("org_id") @db.Uuid
+  email            String            @unique @db.VarChar(150)
+  role             String            @db.VarChar(30) // Map to UserRole enum strings
+  isActive         Boolean           @default(true) @map("is_active")
+  createdAt        DateTime          @default(now()) @map("created_at") @db.Timestamptz
+  organization     Organization      @relation(fields: [orgId], references: [orgId], onDelete: Cascade)
+  auditEvents      AuditEvent[]
+  approvalsCreated MissionApproval[]
+
+  @@index([orgId], name: "idx_users_tenant")
+  @@map("users")
+}
+
+// 3. CRYPTOGRAPHIC CREDENTIAL STORAGE
+model ApiKey {
+  keyId            String       @id @default(uuid()) @map("key_id") @db.Uuid
+  orgId            String       @map("org_id") @db.Uuid
+  name             String       @db.VarChar(50)
+  encryptedSecret  String       @map("encrypted_secret") @db.Text
+  iv               String       @db.VarChar(32)
+  tag              String       @db.VarChar(32)
+  createdAt        DateTime     @default(now()) @map("created_at") @db.Timestamptz
+  organization     Organization @relation(fields: [orgId], references: [orgId], onDelete: Cascade)
+
+  @@map("api_keys")
+}
+
+// 4. BLOCK-CHAINED AUDIT ARCHIVE
+model AuditEvent {
+  eventId          String        @id @default(uuid()) @map("event_id") @db.Uuid
+  orgId            String        @map("org_id") @db.Uuid
+  userId           String        @map("user_id") @db.Uuid
+  agentName        String?       @map("agent_name") @db.VarChar(50)
+  action           String        @db.VarChar(100)
+  timestamp        DateTime      @default(now()) @db.Timestamptz
+  previousState    String        @map("previous_state") @db.Text
+  newState         String        @map("new_state") @db.Text
+  cryptoHash       String        @map("crypto_hash") @db.VarChar(64)
+  organization     Organization  @relation(fields: [orgId], references: [orgId], onDelete: Cascade)
+  user             User          @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@index([orgId, timestamp], name: "idx_audit_timeline")
+  @@map("audit_events")
+}
+
+// 5. HUMAN-IN-THE-LOOP APPROVAL RECORDS
+model MissionApproval {
+  approvalId       String       @id @default(uuid()) @map("approval_id") @db.Uuid
+  orgId            String       @map("org_id") @db.Uuid
+  requestedByUserId String       @map("requested_by_user_id") @db.Uuid
+  riskLevel        String       @default("LOW") @map("risk_level")
+  targetAction     String       @map("target_action") @db.Text
+  status           String       @default("PENDING") // PENDING, APPROVED, REJECTED
+  createdAt        DateTime     @default(now()) @map("createdAt") @db.Timestamptz
+  organization     Organization @relation(fields: [orgId], references: [orgId], onDelete: Cascade)
+  requestedByUser  User         @relation(fields: [requestedByUserId], references: [userId], onDelete: Cascade)
+
+  @@map("mission_approvals")
+}
+
+// 6. CRYPTOGRAPHIC ACTION AUDIT LOG
+model CryptographicActionLog {
+  id                String   @id @default(uuid())
+  timestamp         DateTime @default(now())
+  actionType        String   // e.g., "FINANCIAL_SETTLEMENT_RELEASE"
+  operatorId        String   
+  payloadSnapshot   String   // JSON payload details state snapshot block
+  previousEntryHash String   // Secure link establishing an immutable append-only ledger chain
+  cryptographicHash String   // SHA-256 signature generated from (payloadSnapshot + previousEntryHash)
+
+  @@index([cryptographicHash])
+  @@map("cryptographic_action_logs")
+}
+
+// 7. STRATEGY METRICS (STAGE 4 LEARNING SYSTEMS)
+model StrategyMetrics {
+  strategyId           String               @id @map("strategy_id") @db.VarChar(255)
+  strategyName         String               @map("strategy_name") @db.VarChar(100)
+  successRate          Decimal              @default(0.00) @map("success_rate") @db.Decimal(5, 2)
+  confidenceScore      Decimal              @default(0.00) @map("confidence_score") @db.Decimal(5, 2)
+  totalMissionsExecuted Int                 @default(0) @map("total_missions_executed")
+  lastUpdatedAt        DateTime             @default(now()) @map("last_updated_at") @db.Timestamptz
+  learningLogs         LearningHistoryLog[]
+
+  @@index([strategyName, confidenceScore], name: "idx_strategy_perf")
+  @@map("strategy_metrics")
+}
+
+// 8. LEARNING HISTORY LOGS (STAGE 4 LEARNING SYSTEMS)
+model LearningHistoryLog {
+  logId              Int             @id @default(autoincrement()) @map("log_id")
+  strategyId         String?         @map("strategy_id") @db.VarChar(255)
+  agentId            String          @map("agent_id") @db.VarChar(100)
+  missionId          String          @map("mission_id") @db.VarChar(100)
+  outcome            String          @db.VarChar(50)
+  previousConfidence Decimal?        @map("previous_confidence") @db.Decimal(5, 2)
+  newConfidence      Decimal?        @map("new_confidence") @db.Decimal(5, 2)
+  adjustmentReason   String?         @map("adjustment_reason") @db.Text
+  recordedAt         DateTime        @default(now()) @map("recorded_at") @db.Timestamptz
+  strategy           StrategyMetrics? @relation(fields: [strategyId], references: [strategyId])
+
+  @@index([strategyId, recordedAt(sort: Desc)], name: "idx_learning_logs")
+  @@map("learning_history_logs")
+}
+

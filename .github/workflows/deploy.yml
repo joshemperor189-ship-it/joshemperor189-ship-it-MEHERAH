@@ -1,0 +1,59 @@
+name: MEHERAH OS CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  validate-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Run Integrity Audit (Lint & Build Verification)
+      run: |
+        npm ci
+        npm run lint
+        npm run build
+
+    # --- Google Cloud Authentication ---
+    - name: Authenticate with Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Configure Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+
+    - name: Configure Docker for Google Container Registry
+      run: gcloud auth configure-docker africa-south1-docker.pkg.dev
+
+    # --- Build and Push Container ---
+    - name: Build Production Docker Image
+      run: |
+        docker build -t africa-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meherah-repo/engine:latest .
+
+    - name: Push Container to Artifact Registry
+      run: |
+        docker push africa-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meherah-repo/engine:latest
+
+    # --- Deploy to Google Cloud Run ---
+    - name: Deploy Live Container to Cloud Run
+      uses: google-github-actions/deploy-cloudrun@v2
+      with:
+        service: meherah-os-engine
+        image: africa-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/meherah-repo/engine:latest
+        region: africa-south1
+        env_vars: |
+          NODE_ENV=production
+          DATABASE_URL=${{ secrets.DATABASE_URL }}
+          GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}
+          MTN_WEBHOOK_SECRET=${{ secrets.MTN_WEBHOOK_SECRET }}

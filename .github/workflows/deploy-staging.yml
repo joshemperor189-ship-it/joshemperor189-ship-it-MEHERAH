@@ -1,0 +1,120 @@
+name: MEHERAH OS Beta 1.0 — Automated Staging CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, staging, "release/**" ]
+  workflow_dispatch:
+
+env:
+  GCP_REGION: us-central1
+  ARTIFACT_REPOSITORY: meherah-beta-container
+  IMAGE_NAME: meherah-os
+  CLOUD_RUN_SERVICE: meherah-os-staging
+  RELEASE_VERSION: v1.0-beta.001
+
+jobs:
+  build-test-and-deploy:
+    name: Validate, Build, Deploy to Cloud Run Staging & Verify Health
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install Node Dependencies
+        run: npm ci
+
+      - name: 🔍 Task 2: TypeScript Validation
+        run: npm run typecheck
+
+      - name: 🧪 Task 2: Execute Automated Test Suite
+        run: npm run test
+
+      - name: 🏗️ Task 2: Execute Production Application Build
+        run: npm run build
+
+      - name: 🔑 Task 5: Authenticate to Google Cloud Platform
+        id: gcp-auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: 🛠️ Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: 🐳 Task 3: Configure Docker Authentication for Artifact Registry
+        run: |
+          gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+
+      - name: 🐳 Task 3: Build & Tag Docker Container Image
+        id: docker-build
+        run: |
+          REGISTRY_PATH="us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}"
+          TAG_SHA="${REGISTRY_PATH}:${{ github.sha }}"
+          TAG_VERSION="${REGISTRY_PATH}:${{ env.RELEASE_VERSION }}"
+          
+          echo "Building image tagged: $TAG_SHA and $TAG_VERSION"
+          docker build -t "$TAG_SHA" -t "$TAG_VERSION" .
+          
+          echo "IMAGE_TAG_SHA=$TAG_SHA" >> $GITHUB_ENV
+          echo "IMAGE_TAG_VERSION=$TAG_VERSION" >> $GITHUB_ENV
+
+      - name: 📤 Task 3: Push Docker Image to Artifact Registry
+        run: |
+          docker push "$IMAGE_TAG_SHA"
+          docker push "$IMAGE_TAG_VERSION"
+
+      - name: 🚀 Task 4: Deploy to Google Cloud Run (Staging Environment)
+        id: cloud-run-deploy
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: '${{ env.CLOUD_RUN_SERVICE }}'
+          region: '${{ env.GCP_REGION }}'
+          image: '${{ env.IMAGE_TAG_SHA }}'
+          flags: |
+            --allow-unauthenticated
+            --cpu=2
+            --memory=1Gi
+            --min-instances=1
+            --max-instances=5
+            --set-env-vars=NODE_ENV=production,ENVIRONMENT=MEHERAH-STAGING
+            --set-secrets=DATABASE_URL=DATABASE_URL:latest,REDIS_URL=REDIS_URL:latest,RABBITMQ_URL=RABBITMQ_URL:latest,GEMINI_API_KEY=GEMINI_API_KEY:latest,JWT_SECRET=JWT_SECRET:latest
+
+      - name: 🏥 Task 6: Runtime Health Verification
+        run: |
+          SERVICE_URL="${{ steps.cloud-run-deploy.outputs.url }}"
+          echo "Checking health endpoint at ${SERVICE_URL}/api/health..."
+          
+          HEALTH_RESPONSE=$(curl -sS --fail --max-time 30 "${SERVICE_URL}/api/health")
+          echo "Health response payload: $HEALTH_RESPONSE"
+          
+          if echo "$HEALTH_RESPONSE" | grep -q '"status":"ok"' && echo "$HEALTH_RESPONSE" | grep -q '"meherah":"online"'; then
+            echo "✅ Health check PASSED: MEHERAH OS Beta 1.0 Staging Kernel is active."
+          else
+            echo "❌ Health check FAILED! Invalid payload received."
+            exit 1
+          fi
+
+      - name: 📢 Task 7: Generate Deployment Status Report
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "### 🚀 MEHERAH STAGING DEPLOYED SUCCESS" >> $GITHUB_STEP_SUMMARY
+            echo "**Version**: ${{ env.RELEASE_VERSION }}" >> $GITHUB_STEP_SUMMARY
+            echo "**Commit**: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "**Environment**: MEHERAH-STAGING" >> $GITHUB_STEP_SUMMARY
+            echo "**Health Check**: PASS (100% Core Active)" >> $GITHUB_STEP_SUMMARY
+            echo "**Cloud Run URL**: ${{ steps.cloud-run-deploy.outputs.url }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ❌ DEPLOYMENT FAILED" >> $GITHUB_STEP_SUMMARY
+            echo "**Stage**: CI/CD Staging Deployment" >> $GITHUB_STEP_SUMMARY
+            echo "**Reason**: Build, Test, Docker Push or Health check failed." >> $GITHUB_STEP_SUMMARY
+            echo "**Rollback required**: YES" >> $GITHUB_STEP_SUMMARY
+            echo "To rollback run: \`gcloud run deploy ${{ env.CLOUD_RUN_SERVICE }} --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ env.ARTIFACT_REPOSITORY }}/${{ env.IMAGE_NAME }}:PREVIOUS_STABLE_SHA\`" >> $GITHUB_STEP_SUMMARY
+          fi

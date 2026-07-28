@@ -1,0 +1,31 @@
+steps:
+  # 1. Build the production-ready Docker container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build', 
+      '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/meherah-repo/meherah-os-beta:latest', 
+      '.'
+    ]
+
+  # 2. Push the completed image directly to the secure Cloud Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push', 
+      'us-central1-docker.pkg.dev/$PROJECT_ID/meherah-repo/meherah-os-beta:latest'
+    ]
+
+  # 3. Deploy the compiled agnostic container straight onto Google Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'meherah-os-beta'
+      - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/meherah-repo/meherah-os-beta:latest'
+      - '--region=us-central1'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--vpc-connector=meherah-vpc-connector'
+
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/meherah-repo/meherah-os-beta:latest'
