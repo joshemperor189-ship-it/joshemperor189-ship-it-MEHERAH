@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # Database Layer (Stage 4 Learning Persistence)
+  postgres:
+    image: postgres:15-alpine
+    container_name: meherah-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: meherah_db
+    ports:
+      - "5443:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d meherah_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Telemetry Key-Value Cache (Stage 1 Infrastructure Checks)
+  redis:
+    image: redis:7-alpine
+    container_name: meherah-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Message Broker Engine (Stage 1 Core Mission Delivery Queue)
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: meherah-rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"   # AMQP protocol port
+      - "15672:15672" # Management dashboard UI
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  postgres_data:
+  redis_data:
+  rabbitmq_data:

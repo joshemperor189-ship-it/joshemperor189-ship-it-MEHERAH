@@ -102,7 +102,8 @@ export function SettingsCenter() {
     { id: 'p2', name: 'Airtel Money Switch', type: 'Mobile Money', status: 'Connected', latency: '2.8s', successRate: '98.9%', apiKeyMasked: 'art_live_••••••••3310', mtlsStatus: 'Verified' },
     { id: 'p3', name: 'Bank of Uganda RTGS', type: 'Bank RTGS', status: 'Connected', latency: '1.8s', successRate: '99.9%', apiKeyMasked: 'bou_rtgs_••••••••0019', mtlsStatus: 'Verified' },
     { id: 'p4', name: 'Stanbic Bank Gateway', type: 'Bank RTGS', status: 'Connected', latency: '1.9s', successRate: '99.7%', apiKeyMasked: 'stb_prod_••••••••7721', mtlsStatus: 'Verified' },
-    { id: 'p5', name: 'Flutterwave Enterprise', type: 'Cross-Border', status: 'Connected', latency: '3.0s', successRate: '99.1%', apiKeyMasked: 'flw_live_••••••••1049', mtlsStatus: 'Expiring Soon' }
+    { id: 'p5', name: 'Flutterwave Enterprise', type: 'Cross-Border', status: 'Connected', latency: '3.0s', successRate: '99.1%', apiKeyMasked: 'flw_live_••••••••1049', mtlsStatus: 'Expiring Soon' },
+    { id: 'p6', name: 'Base44 Intelligence Rail', type: 'Cross-Border', status: 'Connected', latency: '1.4s', successRate: '99.8%', apiKeyMasked: 'b44_live_••••••••4488', mtlsStatus: 'Verified' }
   ]);
 
   const [securitySettings, setSecuritySettings] = useState({
@@ -184,7 +185,16 @@ export function SettingsCenter() {
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <a
+              href="/MEHERAH-AI-COMPLETE-BACKUP.zip"
+              download="MEHERAH-AI-COMPLETE-BACKUP.zip"
+              onClick={() => showToast('Downloading MEHERAH-AI-COMPLETE-BACKUP.zip directly to your phone / local storage!')}
+              className="px-4 py-2 rounded-xl bg-[#00B86B] hover:bg-[#00D078] text-[#0B0B0B] text-xs font-mono font-bold transition-all flex items-center gap-2 cursor-pointer shadow-lg active:scale-95"
+            >
+              <Download size={14} />
+              <span>Save Backup to Phone Memory</span>
+            </a>
             <button
               onClick={() => showToast('Configuration synchronized across all regional MEHERAH fleet nodes.')}
               className="px-4 py-2 rounded-xl bg-[#070707] hover:bg-[#1A1A1A] border border-[#C8A34A]/50 text-[#C8A34A] hover:text-[#FFFFFF] text-xs font-mono font-bold transition-all flex items-center gap-2 cursor-pointer shadow-md"
@@ -789,6 +799,36 @@ export function SettingsCenter() {
                     defaultValue="https://api.meherah.org/v1/webhooks/events"
                     className="w-full bg-[#111111] border border-[#333333] focus:border-[#C8A34A] rounded-xl p-3 text-xs text-[#FFFFFF] outline-none"
                   />
+                </div>
+              </div>
+
+              {/* INSTITUTIONAL BACKUP PACKAGE DOWNLOAD CARD */}
+              <div className="p-5 bg-[#070707] border border-[#00B86B]/60 rounded-2xl space-y-4 font-mono text-xs shadow-2xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <span className="text-[10px] uppercase font-bold text-[#00B86B] tracking-widest block">
+                      OFFICIAL INSTITUTIONAL MASTER BACKUP
+                    </span>
+                    <strong className="text-base font-bold text-[#FFFFFF] flex items-center gap-2 mt-0.5">
+                      <FileText size={18} className="text-[#00B86B]" /> MEHERAH-AI-COMPLETE-BACKUP.zip
+                    </strong>
+                    <p className="text-[11px] text-[#A7A7A7] mt-1">
+                      Contains complete frontend source code, backend server, PID decision engines, FIPS 140-2 HSM modules, PostgreSQL schemas, and Bank of Uganda verification test suite.
+                    </p>
+                  </div>
+                  <a
+                    href="/MEHERAH-AI-COMPLETE-BACKUP.zip"
+                    download="MEHERAH-AI-COMPLETE-BACKUP.zip"
+                    onClick={() => showToast('Direct download initiated! Saving MEHERAH-AI-COMPLETE-BACKUP.zip to phone memory / Downloads folder.')}
+                    className="px-5 py-3 rounded-xl bg-[#00B86B] hover:bg-[#00D078] text-[#0B0B0B] font-mono font-bold text-xs flex items-center justify-center gap-2 shadow-xl hover:scale-105 active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+                  >
+                    <Download size={16} />
+                    <span>Download to Phone Memory</span>
+                  </a>
+                </div>
+                <div className="p-3 bg-[#111111] rounded-xl border border-[#222222] text-[10px] text-[#A7A7A7] flex items-center justify-between">
+                  <span>Package Status: <strong className="text-[#00B86B]">Ready for Offline Extraction</strong></span>
+                  <span>Target: <strong className="text-[#E8C879]">Mobile Downloads / Device Storage</strong></span>
                 </div>
               </div>
             </motion.div>

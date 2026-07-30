@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEHERAH AI — Autonomous Chief of Staff Workspace</title>
+  <script src="https://tailwindcss.com"></script>
+  <style>
+    body { background-color: #0a0a0a; color: #f5f5f5; font-family: system-ui, sans-serif; }
+    .glass-panel { background: rgba(23, 23, 23, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(63, 63, 70, 0.4); }
+    .amber-glow { filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.6)); }
+    .pulse-glow { animation: aura-pulse 3s infinite ease-in-out; }
+    @keyframes aura-pulse { 0%, 100% { opacity: 0.15; transform: scale(1); } 50% { opacity: 0.35; transform: scale(1.15); } }
+  </style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden flex flex-col justify-between">
+
+  <!-- Persistent Safety Layer -->
+  <div class="bg-amber-950/40 border-b border-amber-500/30 text-amber-200/90 text-xs px-6 py-2.5 text-center font-medium tracking-wide">
+    ⚠️ <strong>LAUNCH DISCLAIMER:</strong> MEHERAH is an advanced AI decision-support system designed to assist human strategy. It does not independently execute live real-world financial or infrastructure changes.
+  </div>
+
+  <!-- Primary Dynamic Content Container -->
+  <main class="container mx-auto p-6 max-w-6xl flex-grow flex items-center justify-center">
+    
+    <!-- SECTION A: AUTHENTICATION ENTRANCE -->
+    <div id="auth-view" class="w-full max-w-md p-8 rounded-2xl glass-panel shadow-2xl space-y-6">
+      <div class="text-center">
+        <h1 class="text-3xl font-extrabold tracking-tight text-white">MEHERAH OS <span class="text-amber-500 font-medium text-sm tracking-widest uppercase block mt-1">Beta 1.0 Entrance</span></h1>
+      </div>
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Workspace Email</label>
+          <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:outline-none focus:border-amber-500 transition-colors">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1">Security Key Phrase</label>
+          <input type="password" id="password" required class="w-full px-4 py-3 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:outline-none focus:border-amber-500 transition-colors">
+        </div>
+        <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-neutral-950 font-bold rounded-lg tracking-wide transition-all shadow-lg hover:shadow-amber-500/20">
+          Unlock Console
+        </button>
+      </form>
+    </div>
+
+    <!-- SECTION B: UNIFIED AGENT & HEALTH WORKSPACE (HIDDEN BY DEFAULT) -->
+    <div id="workspace-view" class="w-full space-y-6 hidden">
+      
+      <!-- Top Navigation Core -->
+      <header class="flex justify-between items-center pb-4 border-b border-neutral-800">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">meherah.ai <span class="text-xs px-2 py-0.5 rounded bg-neutral-800 text-neutral-400">STAGING LAYER</span></h2>
+          <p id="user-display" class="text-xs text-neutral-400 mt-0.5"></p>
+        </div>
+        <button onclick="logout()" class="px-3 py-1.5 text-xs font-semibold text-neutral-400 hover:text-white border border-neutral-700 hover:border-neutral-500 rounded transition-colors">Terminate Session</button>
+      </header>
+
+      <!-- Main Layout Framework splits Telemetry and Command -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- LEFT PANEL: The Fluidic Flow Halo Engine -->
+        <div class="p-6 rounded-2xl glass-panel relative flex flex-col items-center justify-center overflow-hidden">
+          <div class="absolute inset-0 bg-amber-500 rounded-full blur-3xl pulse-glow pointer-events-none"></div>
+          
+          <div class="relative w-48 h-48 flex items-center justify-center">
+            <svg class="w-full h-full transform -rotate-90">
+              <circle cx="96" cy="96" r="80" class="stroke-neutral-800" stroke-width="8" fill="transparent"/>
+              <circle cx="96" cy="96" r="80" stroke="#f59e0b" stroke-width="8" fill="transparent" stroke-dasharray="502" stroke-dashoffset="15" class="amber-glow" stroke-linecap="round"/>
+            </svg>
+            <div class="absolute text-center">
+              <span class="text-xs uppercase tracking-widest text-neutral-400 font-medium">Kernel Health</span>
+              <div id="health-pct" class="text-4xl font-black text-white mt-0.5">96%</div>
+            </div>
+          </div>
+          <div class="mt-4 text-xs text-neutral-400 space-y-1 w-full text-center relative z-10">
+            <div>PostgreSQL: <span class="text-emerald-400 font-bold">ONLINE</span></div>
+            <div>Redis Clusters: <span class="text-emerald-400 font-bold">ACTIVE</span></div>
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL: Deployment Hub -->
+        <div class="md:col-span-2 p-6 rounded-2xl glass-panel space-y-4">
+          <h3 class="text-lg font-bold text-white">Initialize New Chief of Staff Mission</h3>
+          <p class="text-sm text-neutral-300">Select an execution context or write a custom goal statement below:</p>
+          
+          <!-- Quick Mission Templates -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-left">
+            <button onclick="prefill('Create a cross-border business expansion strategy')" class="p-3 text-xs bg-neutral-900/60 border border-neutral-800 rounded-xl text-neutral-300 hover:border-amber-500/50 hover:bg-neutral-900 transition-all text-left">
+              💡 Create business expansion strategy
+            </button>
+            <button onclick="prefill('Analyse regional market scaling opportunities')" class="p-3 text-xs bg-neutral-900/60 border border-neutral-800 rounded-xl text-neutral-300 hover:border-amber-500/50 hover:bg-neutral-900 transition-all text-left">
+              📊 Analyse a market opportunity
+            </button>
+          </div>
+
+          <!-- Execution Input Pipeline -->
+          <div class="pt-2 space-y-3">
+            <textarea id="goal-input" rows="3" placeholder="What should MEHERAH accomplish today? Provide background context or specific requirements..." class="w-full p-4 rounded-xl bg-neutral-900 border border-neutral-800 text-white text-sm focus:outline-none focus:border-amber-500 transition-colors" required></textarea>
+            <button onclick="triggerMission()" class="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-neutral-950 font-bold rounded-xl text-sm tracking-wide shadow-md transition-all">
+              Deploy Autonomous Agent Array
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center py-4 text-[10px] text-neutral-600 tracking-wider">
+    MEHERAH COMPILER RUNTIME v1.0.0-BETA // SECURE CLOUD ROUTING ACTIVE
+  </footer>
+
+  <!-- Workspace Orchestration Engine Code -->
+  <script>
+    let sessionToken = localStorage.getItem('meherah_jwt');
+    if (sessionToken) showWorkspace();
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('meherah_jwt', data.token);
+        localStorage.setItem('meherah_user', `${data.email} (${data.role})`);
+        sessionToken = data.token;
+        showWorkspace();
+      } else {
+        alert('Authentication Refused: ' + data.error);
+      }
+    });
+
+    function showWorkspace() {
+      document.getElementById('auth-view').classList.add('hidden');
+      document.getElementById('workspace-view').classList.remove('hidden');
+      document.getElementById('user-display').innerText = `Active User: ${localStorage.getItem('meherah_user')}`;
+      pollTelemetry();
+    }
+
+    function logout() {
+      localStorage.clear();
+      window.location.reload();
+    }
+
+    function prefill(text) {
+      document.getElementById('goal-input').value = text;
+    }
+
+    async function triggerMission() {
+      const goal = document.getElementById('goal-input').value;
+      if (!goal) return alert('Goal specification payload cannot be blank.');
+
+      const res = await fetch('/api/missions/instantiate', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionToken}`
+        },
+        body: JSON.stringify({ goalDescription: goal, scopeTier: 'business_strategy' })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert(`🎯 Execution Initialized. Track progress via Mission Center. ID: ${data.missionId}`);
+        document.getElementById('goal-input').value = '';
+      } else {
+        alert(`Deployment Rejected: ${data.error}`);
+      }
+    }
+
+    async function pollTelemetry() {
+      try {
+        const res = await fetch('/api/telemetry/stream', {
+          headers: { 'Authorization': `Bearer ${sessionToken}` }
+        });
+        const data = await res.json();
+        if (res.ok) {
+          document.getElementById('health-pct').innerText = `${data.overallScore}%`;
+        }
+      } catch (err) {}
+      setTimeout(pollTelemetry, 5000);
+    }
+  </script>
+</body>
+</html>
