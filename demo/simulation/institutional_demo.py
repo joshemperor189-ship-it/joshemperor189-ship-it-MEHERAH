@@ -12,6 +12,7 @@ def run_simulation():
     print("⚡ MEHERAH Intelligence Core Status: Online | 99.9% System Readiness")
     print("📊 Executive Dashboard Matrix: Connected [Banks: 4 | Mobile Money: 6 | Gateways: 2]")
     print("🛡️ Security Guardrails Active: Zero-Trust RBAC | Explicit Intent Enforcement | 90% AI Confidence Intercept")
+    print("🔄 MAFE Engine Active: Adaptive Financial Feedback Loop (Proportional-Integral-Derivative)")
     time.sleep(1)
     
     print("\n--------------------------------------------------------------------------------")
@@ -26,7 +27,7 @@ def run_simulation():
     print("   -> RBAC Clearance Level: OPERATOR_LEVEL_2 (PASS)")
     time.sleep(1)
 
-    print("\n🤖 Step 2: AI Route Intelligence Analysis Running...")
+    print("\n🤖 Step 2: MAFE Route Intelligence Analysis (Proportional + Integral + Derivative)")
     time.sleep(1.5)
     
     print("\n--- Provider Metrics Evaluated in Real Time ---")
@@ -35,9 +36,13 @@ def run_simulation():
     print(" Option 3 [Bank ACH]:      Fee: 2.5% | Latency: 45000ms| Reliability: 99.9% | Status: Delayed Clearing")
     time.sleep(1.5)
     
-    print("\n🧠 Step 3: Explainable AI (XAI) Decision Engine Result")
+    print("\n🧠 Step 3: MAFE Confidence Engine & Explainable AI (XAI) Result")
     print("   -> Selected Provider:  Airtel Money")
-    print("   -> Confidence Score:   96.0% (Exceeds 90.0% Governance Threshold)")
+    print("   -> MAFE P-I-D Breakdown:")
+    print("      * P (Present State Score):     92.0/100 (Latency 1800ms, Fee 0.9%, Health OPTIMAL)")
+    print("      * I (Historical SLA Score):    99.4/100 (100/100 successful historical settlements)")
+    print("      * D (Predictive Stability):   98.0/100 (Zero error spikes, stable traffic velocity)")
+    print("   -> Overall Confidence Score:   96.0% (Exceeds 90.0% Governance Threshold)")
     print("   -> AI Decision Reason: Lowest total execution cost + highest reliability + lowest latency.")
     print("   -> Financial Impact:   Saved 1,500 UGX in fees compared to Bank ACH while delivering 25x faster settlement.")
     time.sleep(1.5)

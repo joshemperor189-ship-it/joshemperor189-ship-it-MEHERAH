@@ -41,8 +41,8 @@ export function AdaptiveShell({
         
         {/* LOGO & TITLE */}
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#E5C76B] via-[#C8A64D] to-[#8A6D1B] p-0.5 shadow-[0_0_15px_rgba(200,166,77,0.3)]">
-            <div className="w-full h-full bg-[#080808] rounded-[9px] flex items-center justify-center font-bold text-base text-[#C8A64D] font-serif">M</div>
+          <div className="w-9 h-9 rounded-xl overflow-hidden border border-[#C8A64D]/50 shadow-[0_0_15px_rgba(200,166,77,0.3)] bg-[#080808] flex items-center justify-center">
+            <img src="/src/assets/images/meherah_app_icon_1785426315944.jpg" alt="MEHERAH Icon" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           </div>
           <div>
             <span className="text-[9px] font-mono tracking-widest text-[#C8A64D] uppercase font-bold block">

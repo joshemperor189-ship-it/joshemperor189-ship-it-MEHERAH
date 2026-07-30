@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutDashboard, Wallet, ShieldAlert, Cpu, Settings, ChevronRight, Activity, Bell, Terminal, Zap, Radio, Landmark, Send, ShieldCheck, Globe, Network, Scale, CheckCircle2, FlaskConical, Compass, Brain, Globe2, Sparkles, Award, Building2, Users, Play, Sliders, Stethoscope } from 'lucide-react';
+import { LayoutDashboard, Wallet, ShieldAlert, Cpu, Settings, ChevronRight, Activity, Bell, Terminal, Zap, Radio, Landmark, Send, ShieldCheck, Globe, Network, Scale, CheckCircle2, FlaskConical, Compass, Brain, Globe2, Sparkles, Award, Building2, Users, Play, Sliders, Stethoscope, Rocket } from 'lucide-react';
 import { UgandaFinanceCenterView } from './components/views/UgandaFinanceCenterView';
 import { AgentControlCenterView } from './components/views/AgentControlCenterView';
 import { EnterpriseControlCenterView } from './components/views/EnterpriseControlCenterView';
@@ -38,6 +38,19 @@ import { ExecutiveControlUnitsView } from './components/views/ExecutiveControlUn
 import { AdministrationDashboardView } from './components/views/AdministrationDashboardView';
 import { MeherahSystemImpactSimulatorView } from './components/views/MeherahSystemImpactSimulatorView';
 import { MeherahAutonomousRecoveryRepairView } from './components/views/MeherahAutonomousRecoveryRepairView';
+import { MeherahMissionControl } from './components/views/MeherahMissionControl';
+import { MeherahRegulatorRoomView } from './components/views/MeherahRegulatorRoomView';
+import { MeherahStage8InstitutionalReadinessView } from './components/views/MeherahStage8InstitutionalReadinessView';
+import { MeherahStage9ExternalValidationView } from './components/views/MeherahStage9ExternalValidationView';
+import { MeherahStage10RegulatoryAcceptanceView } from './components/views/MeherahStage10RegulatoryAcceptanceView';
+import { MeherahStage11SandboxPilotView } from './components/views/MeherahStage11SandboxPilotView';
+import { MeherahStage12MultiInstitutionView } from './components/views/MeherahStage12MultiInstitutionView';
+import { MeherahStage13NationalInfrastructureView } from './components/views/MeherahStage13NationalInfrastructureView';
+import { MeherahStage14OperationalReadinessView } from './components/views/MeherahStage14OperationalReadinessView';
+import { MeherahStage15OperationalExecutionView } from './components/views/MeherahStage15OperationalExecutionView';
+import { MeherahAdministrationWorkspaceView } from './components/views/MeherahAdministrationWorkspaceView';
+import { AdministrationCommandCenter } from './components/AdministrationCommandCenter';
+import { SettingsCenter } from './components/SettingsCenter';
 import DemoSafetyAuditView from './components/views/DemoSafetyAuditView';
 import { RoleSelectionView, MeherahRole } from './components/adaptive/RoleSelectionView';
 import { AdaptiveShell } from './components/adaptive/AdaptiveShell';
@@ -107,8 +120,8 @@ export default function App() {
       <aside className="w-24 md:w-64 bg-[#111111] border-r border-[#C9A227]/20 p-4 flex flex-col justify-between hidden md:flex sticky h-screen top-0">
         <div className="space-y-6">
           <div className="px-3 py-4 flex items-center gap-3 border-b border-[#222222]">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E8C879] via-[#C9A227] to-[#8A6D1B] p-0.5 shadow-[0_0_20px_rgba(201,162,39,0.25)]">
-              <div className="w-full h-full bg-[#070707] rounded-[10px] flex items-center justify-center font-bold text-lg text-[#C9A227] font-playfair">M</div>
+            <div className="w-10 h-10 rounded-xl overflow-hidden border border-[#C9A227]/50 shadow-[0_0_20px_rgba(201,162,39,0.3)] bg-[#070707] flex items-center justify-center">
+              <img src="/src/assets/images/meherah_app_icon_1785426315944.jpg" alt="MEHERAH Icon" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             </div>
             <div className="hidden md:block">
               <span className="text-[10px] font-semibold uppercase tracking-widest text-[#666666] font-mono">SOVEREIGN KERNEL</span>
@@ -118,6 +131,18 @@ export default function App() {
 
           <nav className="space-y-1.5 font-sans overflow-y-auto max-h-[calc(100vh-180px)] pr-1">
             {[
+              { id: 'admin_workspace', label: '★ Administration Command Center', icon: Settings },
+              { id: 'settings_center', label: '★ Settings & Control Center', icon: Sliders },
+              { id: 'stage15_execution', label: '★ Stage 15 Operational Execution', icon: Rocket },
+              { id: 'stage14_readiness', label: '★ Stage 14 Operational Readiness', icon: ShieldCheck },
+              { id: 'stage13_national_infrastructure', label: '★ Stage 13 National Infrastructure', icon: Globe },
+              { id: 'stage12_multi_institution', label: '★ Stage 12 Multi-Institution', icon: Building2 },
+              { id: 'stage11_pilot', label: '★ Stage 11 Sandbox Pilot', icon: ShieldCheck },
+              { id: 'stage10_acceptance', label: '★ Stage 10 Sandbox Acceptance', icon: ShieldCheck },
+              { id: 'stage9_validation', label: '★ Stage 9 External Validation', icon: ShieldCheck },
+              { id: 'stage8_readiness', label: '★ Stage 8 Regulatory Challenge', icon: ShieldCheck },
+              { id: 'regulator_room', label: '★ Regulator Room (BOU Stage 7)', icon: Scale },
+              { id: 'mission_control', label: '★ MEHERAH Mission Control (MMC)', icon: Radio },
               { id: 'presentation', label: '★ Executive Presentation (BOU)', icon: Sparkles },
               { id: 'demo_safety_audit', label: '★ Demo Safety Audit (BOU)', icon: ShieldCheck },
               { id: 'meherah_os', label: '◆ Command Centre', icon: Globe },
@@ -194,8 +219,22 @@ export default function App() {
         {/* INSTITUTIONAL HEADER BAR */}
         <header className="h-20 bg-[#111111]/90 backdrop-blur-md border-b border-[#C9A227]/20 px-6 flex items-center justify-between sticky top-0 z-40">
           <div className="flex items-center gap-4">
-            <div className="md:hidden w-8 h-8 rounded-lg bg-[#070707] border border-[#C9A227]/30 flex items-center justify-center font-bold text-xs text-[#C9A227] font-playfair">M</div>
+            <div className="md:hidden w-8 h-8 rounded-lg overflow-hidden border border-[#C9A227]/40 flex items-center justify-center bg-[#070707]">
+              <img src="/src/assets/images/meherah_app_icon_1785426315944.jpg" alt="MEHERAH Icon" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            </div>
             <h2 className="text-lg font-bold tracking-tight text-[#FFFFFF] font-playfair">
+              {(activeTab === 'admin_workspace' || activeTab === 'admin_dashboard' || activeTab === 'admin' || activeTab === 'administration') && 'MEHERAH Institutional Command Center'}
+              {(activeTab === 'settings_center' || activeTab === 'settings') && 'MEHERAH Settings & Control Center'}
+              {activeTab === 'stage15_execution' && 'MEHERAH Stage 15 — Operational Execution & Production Roadmap'}
+              {activeTab === 'stage14_readiness' && 'MEHERAH Stage 14 — Independent Institutional Validation & Operational Readiness'}
+              {activeTab === 'stage13_national_infrastructure' && 'MEHERAH Stage 13 — National Financial Infrastructure Integration & Systemic Resilience'}
+              {activeTab === 'stage12_multi_institution' && 'MEHERAH Stage 12 — Multi-Institution Expansion & Production Governance'}
+              {activeTab === 'stage11_pilot' && 'MEHERAH Stage 11 — Controlled Sandbox Pilot Operations & Regulatory Observation'}
+              {activeTab === 'stage10_acceptance' && 'MEHERAH Stage 10 — Independent Regulatory Acceptance & Sandbox Entry Test'}
+              {activeTab === 'stage9_validation' && 'MEHERAH Stage 9 — External Validation & Controlled Pilot Readiness Test'}
+              {activeTab === 'stage8_readiness' && 'MEHERAH Stage 8 — Institutional Readiness & Regulatory Challenge Certification'}
+              {activeTab === 'regulator_room' && 'MEHERAH Stage 7 — Institutional Demonstration Command Centre (Regulator Room)'}
+              {activeTab === 'mission_control' && 'MEHERAH Mission Control (MMC) — Sovereign Intelligence & Command Centre'}
               {activeTab === 'demo_safety_audit' && 'MEHERAH — Demo Safety Audit & Regulatory Verification Centre'}
               {activeTab === 'meherah_os' && 'MEHERAH OS — The Intelligence Layer Behind Global Finance'}
               {activeTab === 'impact_simulator' && 'MEHERAH — System Impact Simulator ("Think Before The System Acts")'}
@@ -279,12 +318,23 @@ export default function App() {
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
             >
+              {(activeTab === 'admin_workspace' || activeTab === 'admin_dashboard' || activeTab === 'admin' || activeTab === 'administration') && <AdministrationCommandCenter />}
+              {(activeTab === 'settings_center' || activeTab === 'settings') && <SettingsCenter />}
+              {activeTab === 'stage15_execution' && <MeherahStage15OperationalExecutionView />}
+              {activeTab === 'stage14_readiness' && <MeherahStage14OperationalReadinessView />}
+              {activeTab === 'stage13_national_infrastructure' && <MeherahStage13NationalInfrastructureView />}
+              {activeTab === 'stage12_multi_institution' && <MeherahStage12MultiInstitutionView />}
+              {activeTab === 'stage11_pilot' && <MeherahStage11SandboxPilotView />}
+              {activeTab === 'stage10_acceptance' && <MeherahStage10RegulatoryAcceptanceView />}
+              {activeTab === 'stage9_validation' && <MeherahStage9ExternalValidationView />}
+              {activeTab === 'stage8_readiness' && <MeherahStage8InstitutionalReadinessView />}
+              {activeTab === 'regulator_room' && <MeherahRegulatorRoomView />}
+              {activeTab === 'mission_control' && <MeherahMissionControl />}
               {activeTab === 'demo_safety_audit' && <DemoSafetyAuditView />}
               {activeTab === 'meherah_os' && <MeherahOSCommandCentre onNavigateTab={(t) => setActiveTab(t)} />}
               {activeTab === 'impact_simulator' && <MeherahSystemImpactSimulatorView />}
               {activeTab === 'recovery_repair' && <MeherahAutonomousRecoveryRepairView />}
               {activeTab === 'executive_controls' && <ExecutiveControlUnitsView />}
-              {activeTab === 'admin_dashboard' && <AdministrationDashboardView />}
               {activeTab === 'phase9_institutional_pilot' && <MeherahPhase9InstitutionalPilotView />}
               {activeTab === 'reality_sandbox' && <MeherahRealityValidationSandboxView />}
               {activeTab === 'civilization_interface' && <MeherahCivilizationInterfaceView />}
