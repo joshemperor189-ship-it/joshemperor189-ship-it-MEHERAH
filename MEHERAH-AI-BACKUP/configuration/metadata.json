@@ -1,6 +1,0 @@
-{
-  "name": "Meherah",
-  "description": "Meherah — Sovereign Financial OS, Autonomous Recovery & Repair Centre ('Detect. Understand. Recommend. Repair. Verify.'), System Impact Simulator, Proof of Trust Engine, and Human-in-the-Loop Governance.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

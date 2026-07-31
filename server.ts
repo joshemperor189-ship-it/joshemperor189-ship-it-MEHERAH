@@ -145,6 +145,54 @@ app.use((req, res, next) => {
   next();
 });
 
+// Gmail Backup Dispatch Endpoint
+app.post('/api/send-backup-email', express.json(), async (req, res) => {
+  try {
+    const { recipientEmail, accessToken } = req.body;
+    if (!recipientEmail || !accessToken) {
+      return res.status(400).json({ error: 'recipientEmail and accessToken are required.' });
+    }
+
+    const backupZipPath = path.resolve(process.cwd(), 'MEHERAH-AI-COMPLETE-BACKUP.zip');
+    if (!fs.existsSync(backupZipPath)) {
+      return res.status(404).json({ error: 'MEHERAH-AI-COMPLETE-BACKUP.zip archive was not found on server.' });
+    }
+
+    // Dynamic import of gmailSender service
+    const { sendEmailViaGmailApi } = await import('./src/services/gmailSender');
+
+    const result = await sendEmailViaGmailApi({
+      accessToken,
+      recipientEmail,
+      subject: '🏛️ MEHERAH AI — Master Codebase & Institutional Backup Package',
+      htmlBody: `
+        <div style="font-family: monospace, sans-serif; background: #0B0B0B; color: #E5E5E5; padding: 24px; border-radius: 12px;">
+          <h2 style="color: #00B86B;">🏛️ MEHERAH AI — Institutional Backup Delivery</h2>
+          <p>Dear System Administrator,</p>
+          <p>Attached to this email is your complete institutional backup package: <strong>MEHERAH-AI-COMPLETE-BACKUP.zip</strong> (approx 5.9MB).</p>
+          <hr style="border-color: #333;" />
+          <p><strong>Package Contents:</strong></p>
+          <ul>
+            <li>Frontend Mission Control & React + Tailwind SPA</li>
+            <li>Node/Express Server & Enterprise Routers</li>
+            <li>PID Decision Engine & Neural Memory Modules</li>
+            <li>FIPS 140-2 HSM Signing & Security Audit Modules</li>
+            <li>PostgreSQL Schemas & Institutional Verification Suites</li>
+          </ul>
+          <p style="color: #00B86B;"><em>Certified & Audited for Bank of Uganda Sandbox & Pilot Deployment</em></p>
+        </div>
+      `,
+      attachmentPath: backupZipPath,
+      attachmentName: 'MEHERAH-AI-COMPLETE-BACKUP.zip',
+    });
+
+    return res.json({ success: true, messageId: result.id });
+  } catch (err: any) {
+    console.error('API send-backup-email error:', err);
+    return res.status(500).json({ error: err.message || 'Failed to dispatch email' });
+  }
+});
+
 // -------------------------------------------------------------------------
 // DB INITIALIZATION / PERSISTENCE (Simulated Durable Cloud Registry/Store)
 // -------------------------------------------------------------------------

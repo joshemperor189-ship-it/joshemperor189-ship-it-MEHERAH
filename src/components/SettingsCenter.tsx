@@ -32,8 +32,12 @@ import {
   Download,
   ExternalLink,
   SlidersHorizontal,
-  FileText
+  FileText,
+  Mail,
+  Send,
+  Loader2
 } from 'lucide-react';
+import { googleSignIn, sendBackupViaGmail } from '../lib/gmailService';
 
 export type SettingsSection = 'org' | 'ai' | 'integrations' | 'security' | 'notifications' | 'developer' | 'appearance';
 
@@ -133,6 +137,34 @@ export function SettingsCenter() {
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3500);
+  };
+
+  const [isSendingGmail, setIsSendingGmail] = useState(false);
+  const [recipientGmail, setRecipientGmail] = useState('joshemperor189@gmail.com');
+
+  const handleSendGmailBackup = async () => {
+    try {
+      setIsSendingGmail(true);
+      showToast('Authenticating via Google OAuth for Gmail dispatch...');
+      const authResult = await googleSignIn();
+      if (!authResult || !authResult.accessToken) {
+        showToast('Google authentication cancelled.');
+        setIsSendingGmail(false);
+        return;
+      }
+
+      showToast(`Dispatching backup zip directly to ${recipientGmail}...`);
+      const sendResult = await sendBackupViaGmail(recipientGmail, authResult.accessToken);
+      if (sendResult.success) {
+        showToast(`🎉 Backup ZIP successfully sent to ${recipientGmail}! Message ID: ${sendResult.messageId}`);
+      } else {
+        showToast(`❌ Gmail Dispatch Error: ${sendResult.error}`);
+      }
+    } catch (err: any) {
+      showToast(`❌ Gmail Dispatch Error: ${err.message || 'Failed to send backup via Gmail'}`);
+    } finally {
+      setIsSendingGmail(false);
+    }
   };
 
   const handleAddNewApiKey = () => {
@@ -802,33 +834,69 @@ export function SettingsCenter() {
                 </div>
               </div>
 
-              {/* INSTITUTIONAL BACKUP PACKAGE DOWNLOAD CARD */}
+              {/* INSTITUTIONAL BACKUP PACKAGE DOWNLOAD & GMAIL DELIVERY CARD */}
               <div className="p-5 bg-[#070707] border border-[#00B86B]/60 rounded-2xl space-y-4 font-mono text-xs shadow-2xl">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div>
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                  <div className="space-y-1">
                     <span className="text-[10px] uppercase font-bold text-[#00B86B] tracking-widest block">
-                      OFFICIAL INSTITUTIONAL MASTER BACKUP
+                      OFFICIAL INSTITUTIONAL MASTER BACKUP PACKAGE
                     </span>
-                    <strong className="text-base font-bold text-[#FFFFFF] flex items-center gap-2 mt-0.5">
+                    <strong className="text-base font-bold text-[#FFFFFF] flex items-center gap-2">
                       <FileText size={18} className="text-[#00B86B]" /> MEHERAH-AI-COMPLETE-BACKUP.zip
                     </strong>
-                    <p className="text-[11px] text-[#A7A7A7] mt-1">
-                      Contains complete frontend source code, backend server, PID decision engines, FIPS 140-2 HSM modules, PostgreSQL schemas, and Bank of Uganda verification test suite.
+                    <p className="text-[11px] text-[#A7A7A7] max-w-xl">
+                      Complete institutional master archive containing frontend SPA, Node/Express server, PID decision engines, FIPS 140-2 HSM modules, PostgreSQL schemas, and Bank of Uganda verification test suite.
                     </p>
                   </div>
-                  <a
-                    href="/MEHERAH-AI-COMPLETE-BACKUP.zip"
-                    download="MEHERAH-AI-COMPLETE-BACKUP.zip"
-                    onClick={() => showToast('Direct download initiated! Saving MEHERAH-AI-COMPLETE-BACKUP.zip to phone memory / Downloads folder.')}
-                    className="px-5 py-3 rounded-xl bg-[#00B86B] hover:bg-[#00D078] text-[#0B0B0B] font-mono font-bold text-xs flex items-center justify-center gap-2 shadow-xl hover:scale-105 active:scale-95 transition-all cursor-pointer whitespace-nowrap"
-                  >
-                    <Download size={16} />
-                    <span>Download to Phone Memory</span>
-                  </a>
+
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                    <a
+                      href="/MEHERAH-AI-COMPLETE-BACKUP.zip"
+                      download="MEHERAH-AI-COMPLETE-BACKUP.zip"
+                      onClick={() => showToast('Direct download initiated! Saving MEHERAH-AI-COMPLETE-BACKUP.zip to phone memory / Downloads folder.')}
+                      className="px-4 py-2.5 rounded-xl bg-[#00B86B] hover:bg-[#00D078] text-[#0B0B0B] font-mono font-bold text-xs flex items-center justify-center gap-2 shadow-xl hover:scale-105 active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+                    >
+                      <Download size={15} />
+                      <span>Download to Phone Memory</span>
+                    </a>
+                  </div>
                 </div>
-                <div className="p-3 bg-[#111111] rounded-xl border border-[#222222] text-[10px] text-[#A7A7A7] flex items-center justify-between">
-                  <span>Package Status: <strong className="text-[#00B86B]">Ready for Offline Extraction</strong></span>
-                  <span>Target: <strong className="text-[#E8C879]">Mobile Downloads / Device Storage</strong></span>
+
+                <div className="pt-3 border-t border-[#1C1C1C] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 flex-1 max-w-md">
+                    <Mail size={16} className="text-[#C8A34A] shrink-0" />
+                    <input
+                      type="email"
+                      value={recipientGmail}
+                      onChange={(e) => setRecipientGmail(e.target.value)}
+                      placeholder="Enter recipient Gmail address"
+                      className="w-full bg-[#111111] border border-[#333333] focus:border-[#C8A34A] rounded-xl px-3 py-2 text-xs text-[#FFFFFF] outline-none font-mono"
+                    />
+                  </div>
+
+                  <button
+                    onClick={handleSendGmailBackup}
+                    disabled={isSendingGmail}
+                    className="px-4 py-2.5 rounded-xl bg-[#C8A34A] hover:bg-[#E8C879] disabled:bg-[#333333] text-[#0B0B0B] font-mono font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer whitespace-nowrap active:scale-95"
+                  >
+                    {isSendingGmail ? (
+                      <>
+                        <Loader2 size={15} className="animate-spin text-[#0B0B0B]" />
+                        <span>Sending to Gmail...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send size={15} />
+                        <span>Send Backup to My Gmail</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <div className="p-3 bg-[#111111] rounded-xl border border-[#222222] text-[10px] text-[#A7A7A7] flex flex-wrap items-center justify-between gap-2">
+                  <span>Package Status: <strong className="text-[#00B86B]">Ready for Extraction & Delivery</strong></span>
+                  <span>Target Email: <strong className="text-[#C8A34A]">{recipientGmail}</strong></span>
+                  <span>Size: <strong className="text-[#FFFFFF]">~5.9 MB</strong></span>
                 </div>
               </div>
             </motion.div>
